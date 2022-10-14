@@ -1,0 +1,8 @@
+rootProject.ext {
+    appDependencies = [
+            lifecycle_version = '2.3.1',
+            livedata = '2.5.1',
+            fragment_viewmodel = '1.5.3',
+            activity_viewmodel = '1.6.0'
+    ]
+}
