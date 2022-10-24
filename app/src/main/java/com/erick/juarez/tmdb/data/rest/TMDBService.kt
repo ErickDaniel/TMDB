@@ -19,28 +19,6 @@ class TMDBService @Inject constructor(private val apiClient: TMDBApiClient) {
             }
         }
 
-    suspend fun fetchTopRated(page: Int): TMDBResponse? =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = apiClient.fetchTopRatedContent(page)
-                response.body()
-            } catch (e: Exception) {
-                null
-            }
-
-        }
-
-    suspend fun fetchSearchQueryContent(textQuery: String, page: Int): TMDBResponse? =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = apiClient.fetchSearchQueryContent(page, textQuery)
-                response.body()
-            } catch (e: Exception) {
-                null
-            }
-
-        }
-
     suspend fun fetchMovieDetail(movieId: String): TMDBMovieDetail? =
         withContext(Dispatchers.IO) {
             try {
@@ -66,6 +44,17 @@ class TMDBService @Inject constructor(private val apiClient: TMDBApiClient) {
         withContext(Dispatchers.IO) {
             try {
                 val response = apiClient.fetchUpcomingContent(page)
+                response?.body()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+
+    suspend fun fetchTrendingContent(page: Int, mediaType: String): TMDBResponse? =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = apiClient.fetchTrendingContent(page, mediaType)
                 response?.body()
             } catch (e: Exception) {
                 e.printStackTrace()

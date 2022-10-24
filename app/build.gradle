@@ -70,9 +70,19 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
 
-    //Logger interceptors 🕵️‍
+    //Logger interceptors
     debugImplementation "com.github.chuckerteam.chucker:library:$chuckerInterceptor"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuckerInterceptor"
+
+    //Room
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Logger by Orhanobut
+    implementation "com.orhanobut:logger:$logger_version"
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

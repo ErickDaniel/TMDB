@@ -1,11 +1,18 @@
 package com.erick.juarez.tmdb.ui.splashView
 
+import android.animation.Animator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.erick.juarez.tmdb.data.model.TMDBResponse
 import com.erick.juarez.tmdb.databinding.SplashScreenBinding
+import com.erick.juarez.tmdb.domain.model.Movie
+import com.erick.juarez.tmdb.ui.mainView.MainActivity
+import com.erick.juarez.tmdb.util.printLogE
+import com.erick.juarez.tmdb.util.printLogI
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen") //Suppressing the new SplashScreen api warning (Android 12 - SplashScreen)
@@ -21,26 +28,73 @@ class SplashScreen : AppCompatActivity() {
         setContentView(binding.root)
         observeViewModel()
         viewModel.onCreate()
+        setupAnimation()
     }
 
-    private fun savePopularContentOnDb(tmdbResponse: TMDBResponse?) {
-        print(tmdbResponse)
+    private fun setupAnimation(){
+        binding.lottieSplashAnimation.addAnimatorListener(object: Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {}
+
+            override fun onAnimationEnd(animation: Animator) {
+                if(binding.progressSplashScreen.visibility == VISIBLE){
+                    binding.lottieSplashAnimation.playAnimation()
+                } else {
+                    launchMainView()
+                    this@SplashScreen.finish()
+                }
+            }
+
+            override fun onAnimationCancel(animation: Animator) {}
+
+            override fun onAnimationRepeat(animation: Animator) {}
+
+        })
     }
 
-    private fun saveUpcomingContentOnDb(tmdbResponse: TMDBResponse?) {
-        print(tmdbResponse)
+    private fun launchMainView(){
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
-    private fun observeViewModel() = viewModel.splashScreenActions.observe(this) {
-        when (it) {
-            is SplashActivityActions.FetchPopularContentSuccess ->
-                savePopularContentOnDb(it.tmdbResponse)
-            is SplashActivityActions.FetchPopularContentError -> TODO()
-            is SplashActivityActions.FetchUpcomingContentSuccess ->
-                saveUpcomingContentOnDb(it.tmdbResponse)
-            is SplashActivityActions.FetchUpcomingContentError -> TODO()
-            null -> TODO()
+    private fun popularContentSaved(popularContent: List<Movie>?) =
+        printLogI(popularContent.toString(), true)
+
+
+    private fun upcomingContentSaved(upcomingContent: List<Movie>?) =
+        printLogI(upcomingContent.toString(), true)
+
+    private fun trendingContentSaved(popularContent: List<Movie>?) =
+        printLogI(popularContent.toString(), true)
+
+    private fun errorSavingContent() {
+        printLogE("Error Saving Content", true)
+    }
+
+    private fun startLoading() {
+        binding.progressSplashScreen.visibility = VISIBLE
+    }
+
+    private fun stopLoading() {
+        binding.progressSplashScreen.visibility = GONE
+    }
+
+    private fun observeViewModel() =
+        viewModel.splashScreenActions.observe(this) {
+            when (it) {
+                is SplashActivityActions.FetchPopularContentSuccess ->
+                    popularContentSaved(it.tmdbResponse)
+                is SplashActivityActions.FetchPopularContentError ->
+                    errorSavingContent()
+                is SplashActivityActions.FetchUpcomingContentSuccess ->
+                    upcomingContentSaved(it.tmdbResponse)
+                is SplashActivityActions.FetchUpcomingContentError ->
+                    errorSavingContent()
+                is SplashActivityActions.FetchTrendingContentSuccess ->
+                    trendingContentSaved(it.tmdbResponse)
+                is SplashActivityActions.FetchTrendingContentError ->
+                    errorSavingContent()
+                SplashActivityActions.ShowLoading -> startLoading()
+                SplashActivityActions.HideLoading -> stopLoading()
+            }
         }
-    }
 
 }

@@ -6,6 +6,9 @@ rootProject.ext {
             activity_viewmodel = '1.6.0',
             hilt_version = '2.42',
             retrofit = '2.6.0',
-            chuckerInterceptor = '3.5.2'
+            chuckerInterceptor = '3.5.2',
+            room_version = '2.4.3',
+            logger_version = '2.2.0',
+            lottieVersion = '3.6.1'
     ]
 }
