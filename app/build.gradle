@@ -1,16 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 apply from: 'dependencies.gradle'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.erick.juarez.tmdb"
         minSdk 28
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +32,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    flavorDimensions "default"
+    productFlavors {
+        development {
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
+            buildConfigField "String", "BASE_URL_IMAGES", '"https://image.tmdb.org/"'
+            buildConfigField "String", "AUTH_BEARER_API_KEY", '"5e11b2efdbf9db48f1ccfd64bb9e0542"'
+            buildConfigField "String", "YOUTUBE_KEY", '"AIzaSyA9AbL6w9QwJ45n8U-W5Zgxb34TyUCWw0Y"'
+        }
     }
     buildFeatures {
         viewBinding true
@@ -49,6 +61,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata"
     implementation "androidx.fragment:fragment-ktx:$fragment_viewmodel"
     implementation "androidx.activity:activity-ktx:$activity_viewmodel"
+
+    //Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

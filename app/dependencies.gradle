@@ -3,6 +3,8 @@ rootProject.ext {
             lifecycle_version = '2.3.1',
             livedata = '2.5.1',
             fragment_viewmodel = '1.5.3',
-            activity_viewmodel = '1.6.0'
+            activity_viewmodel = '1.6.0',
+            hilt_version = '2.42',
+            retrofit = '2.6.0'
     ]
 }
