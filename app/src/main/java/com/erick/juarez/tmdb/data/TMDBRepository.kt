@@ -16,4 +16,6 @@ class TMDBRepository @Inject constructor(val api: TMDBService) {
 
     suspend fun fetchMovieMedia(movieId: String) = api.fetchMovieMedia(movieId)
 
+    suspend fun fetchUpcomingContent(page: Int) = api.fetchUpcomingContent(page)
+
 }

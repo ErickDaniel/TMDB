@@ -5,7 +5,6 @@ import com.erick.juarez.tmdb.data.model.TMDBMovieMediaResult
 import com.erick.juarez.tmdb.data.model.TMDBResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import javax.inject.Inject
 
 class TMDBService @Inject constructor(private val apiClient: TMDBApiClient) {
@@ -58,6 +57,18 @@ class TMDBService @Inject constructor(private val apiClient: TMDBApiClient) {
                 val response = apiClient.fetchMovieMedia(movieId)
                 response.body()
             } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+
+    suspend fun fetchUpcomingContent(page: Int): TMDBResponse? =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = apiClient.fetchUpcomingContent(page)
+                response?.body()
+            } catch (e: Exception) {
+                e.printStackTrace()
                 null
             }
         }

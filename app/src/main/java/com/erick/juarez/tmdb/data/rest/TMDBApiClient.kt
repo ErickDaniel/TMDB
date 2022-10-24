@@ -14,24 +14,28 @@ interface TMDBApiClient {
 
     @Headers(HEADER_CONTENT_TYPE)
     @GET(PATH_POPULAR)
-    fun fetchPopularContent(@Query(QUERY_PAGE) page:Int): Response<TMDBResponse>
+    suspend fun fetchPopularContent(@Query(QUERY_PAGE) page: Int): Response<TMDBResponse>
 
     @Headers(HEADER_CONTENT_TYPE)
     @GET(PATH_TOP_RATED)
-    fun fetchTopRatedContent(@Query(QUERY_PAGE) page:Int): Response<TMDBResponse>
+    suspend fun fetchTopRatedContent(@Query(QUERY_PAGE) page: Int): Response<TMDBResponse>
 
     @Headers(HEADER_CONTENT_TYPE)
     @GET(PATH_SEARCH)
-    fun fetchSearchQueryContent(@Query(QUERY_PAGE) page: Int,
-                                @Query(QUERY_SEARCH) textQuery:String): Response<TMDBResponse>
+    suspend fun fetchSearchQueryContent(
+        @Query(QUERY_PAGE) page: Int,
+        @Query(QUERY_SEARCH) textQuery: String
+    ): Response<TMDBResponse>
 
     @Headers(HEADER_CONTENT_TYPE)
     @GET(PATH_MOVIE_DETAIL)
-    fun fetchMovieDetail(@Path(QUERY_MOVIE_ID) movieId:String):Response<TMDBMovieDetail>
+    suspend fun fetchMovieDetail(@Path(QUERY_MOVIE_ID) movieId: String): Response<TMDBMovieDetail>
 
     @Headers(HEADER_CONTENT_TYPE)
     @GET(PATH_MOVIE_MEDIA)
-    fun fetchMovieMedia(@Path(QUERY_MOVIE_ID) movieId:String):Response<TMDBMovieMediaResult>
+    suspend fun fetchMovieMedia(@Path(QUERY_MOVIE_ID) movieId: String): Response<TMDBMovieMediaResult>
 
-
+    @Headers(HEADER_CONTENT_TYPE)
+    @GET(PATH_UPCOMING_CONTENT)
+    suspend fun fetchUpcomingContent(@Query(QUERY_PAGE) page: Int): Response<TMDBResponse>?
 }

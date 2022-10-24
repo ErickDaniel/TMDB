@@ -5,6 +5,7 @@ rootProject.ext {
             fragment_viewmodel = '1.5.3',
             activity_viewmodel = '1.6.0',
             hilt_version = '2.42',
-            retrofit = '2.6.0'
+            retrofit = '2.6.0',
+            chuckerInterceptor = '3.5.2'
     ]
 }
