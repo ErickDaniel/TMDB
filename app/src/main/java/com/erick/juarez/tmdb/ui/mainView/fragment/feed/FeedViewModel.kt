@@ -1,4 +1,4 @@
-package com.erick.juarez.tmdb.ui.mainView
+package com.erick.juarez.tmdb.ui.mainView.fragment.feed
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,40 +13,40 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class FeedViewModel @Inject constructor(
     private val fetchUpcomingContentUseCase: FetchUpcomingContentUseCase,
     private val fetchPopularContentUseCase: FetchPopularContentUseCase,
     private val fetchTrendingContentUseCase: FetchTrendingContentUseCase
-) : ViewModel(){
-    
-    val mainActivityActions: LiveData<MainActivityActions>
-        get() = _mainActivityActions
+): ViewModel() {
+
+    val feedActions: LiveData<FeedActions>
+        get() = _feedActions
 
     fun onCreate() =
         viewModelScope.launch {
-            _mainActivityActions.postValue(MainActivityActions.ShowLoading)
+            _feedActions.postValue(FeedActions.ShowLoading)
 
             launch {
                 val upcomingContentResponse = fetchUpcomingContentUseCase(1)
-                _mainActivityActions.postValue(
-                    MainActivityActions.FetchUpcomingContentSuccess(upcomingContentResponse)
+                _feedActions.postValue(
+                    FeedActions.FetchUpcomingContentSuccess(upcomingContentResponse)
                 )
 
                 val popularContentResponse = fetchPopularContentUseCase(1)
-                _mainActivityActions.postValue(
-                    MainActivityActions.FetchPopularContentSuccess(popularContentResponse)
+                _feedActions.postValue(
+                    FeedActions.FetchPopularContentSuccess(popularContentResponse)
                 )
 
                 val fetchTrendingContentResponse = fetchTrendingContentUseCase(1, MEDIA_TYPE_ALL)
-                _mainActivityActions.postValue(
-                    MainActivityActions.FetchTrendingContentSuccess(fetchTrendingContentResponse)
+                _feedActions.postValue(
+                    FeedActions.FetchTrendingContentSuccess(fetchTrendingContentResponse)
                 )
             }
 
-            _mainActivityActions.postValue(MainActivityActions.HideLoading)
+            _feedActions.postValue(FeedActions.HideLoading)
 
         }
-    
-    private val _mainActivityActions: MutableLiveData<MainActivityActions> = MutableLiveData()
-    
+
+    private val _feedActions: MutableLiveData<FeedActions> = MutableLiveData()
+
 }
