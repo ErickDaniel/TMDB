@@ -8,12 +8,6 @@ const val API_QUERY = "?api_key=${BuildConfig.AUTH_BEARER_API_KEY}"
 //HEADERS
 const val HEADER_CONTENT_TYPE = "Content-Type: application/json;charset=utf-8"
 
-//MEDIA TYPES
-const val MEDIA_TYPE_ALL = "all"
-const val MEDIA_TYPE_MOVIE = "movie"
-const val MEDIA_TYPE_TV = "tv"
-const val MEDIA_TYPE_PERSON = "person"
-
 //TIME WINDOW
 const val TIME_WINDOW_DEFAULT = "week"
 

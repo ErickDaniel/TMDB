@@ -12,14 +12,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/rounded_bg_unselected"
-        app:layout_constraintTop_toTopOf="@id/chip_title"
-        app:layout_constraintBottom_toBottomOf="@id/chip_title"
-        app:layout_constraintStart_toStartOf="@id/chip_title"
-        app:layout_constraintEnd_toEndOf="@id/chip_title"
+        app:layout_constraintTop_toTopOf="@id/chip_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/chip_title_tv"
+        app:layout_constraintStart_toStartOf="@id/chip_title_tv"
+        app:layout_constraintEnd_toEndOf="@id/chip_title_tv"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/chip_title"
+        android:id="@+id/chip_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_12dp"

@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.erick.juarez.tmdb.databinding.FeedFragmentBinding
+import com.erick.juarez.tmdb.domain.model.ChipDetail
 import com.erick.juarez.tmdb.domain.model.Movie
-import com.erick.juarez.tmdb.ui.MOVIE_ID
+import com.erick.juarez.tmdb.ui.*
+import com.erick.juarez.tmdb.ui.mainView.adapter.ChipAdapter
 import com.erick.juarez.tmdb.ui.mainView.adapter.MoviesAdapter
+import com.erick.juarez.tmdb.util.CustomGridLayoutManager
 import com.erick.juarez.tmdb.util.CustomLinearLayoutManager
 import com.erick.juarez.tmdb.util.printLogE
 import com.erick.juarez.tmdb.util.printLogI
@@ -35,6 +37,15 @@ class FeedFragment : Fragment() {
     private var trendingMovieList = mutableListOf<Movie>()
     private var trendingMovieAdapter = MoviesAdapter(trendingMovieList, ::onMovieClick)
 
+    //Chip List
+    private var chipList =
+        mutableListOf(
+            ChipDetail(ALL, ALL_KEY, true),
+            ChipDetail(MOVIE, MOVIE_KEY),
+            ChipDetail(TV, TV_KEY),
+        )
+    private var chipAdapter = ChipAdapter(chipList, ::onChipClick)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,8 +58,8 @@ class FeedFragment : Fragment() {
         return binding.root
     }
 
-    private fun setupAdapters(){
-        with(binding){
+    private fun setupAdapters() {
+        with(binding) {
             recyclerPopularContent.adapter = popularMovieAdapter
             recyclerPopularContent.layoutManager = CustomLinearLayoutManager(context)
 
@@ -57,7 +68,11 @@ class FeedFragment : Fragment() {
 
             recyclerTrendingContent.adapter = trendingMovieAdapter
             recyclerTrendingContent.isNestedScrollingEnabled = false
-            recyclerTrendingContent.layoutManager = GridLayoutManager(context, 2)
+            recyclerTrendingContent.layoutManager = CustomGridLayoutManager(context)
+
+            chipRecyclerview.adapter = chipAdapter
+            chipRecyclerview.layoutManager = CustomLinearLayoutManager(context)
+
         }
     }
 
@@ -71,7 +86,7 @@ class FeedFragment : Fragment() {
         popularMovieAdapter.submitList(popularContent.orEmpty())
     }
 
-    private fun onTrendingContentFetched(trendingContent: List<Movie>?){
+    private fun onTrendingContentFetched(trendingContent: List<Movie>?) {
         printLogI(trendingContent.toString(), true)
         trendingMovieAdapter.submitList(trendingContent.orEmpty())
     }
@@ -97,6 +112,13 @@ class FeedFragment : Fragment() {
                     putString(MOVIE_ID, movieId)
                 }
             )
+    }
+
+    private fun onChipClick(chipDetail: ChipDetail, itemPosition: Int) {
+        chipList.map { it.isSelected = false }
+        chipList[itemPosition].isSelected = true
+        chipAdapter.notifyItemRangeChanged(0, chipList.size)
+        viewModel.fetchTrendingContent(chipDetail.chipValue)
     }
 
     private fun observeViewModel() =

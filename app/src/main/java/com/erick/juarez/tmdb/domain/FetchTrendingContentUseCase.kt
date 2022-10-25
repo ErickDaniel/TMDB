@@ -16,12 +16,13 @@ class FetchTrendingContentUseCase @Inject constructor(
         val moviesResponse = tmdbRepository.fetchTrendingContentFromApi(mediaType)
 
         return if (moviesResponse?.isNotEmpty().orFalse()) {
+            moviesResponse?.map { it.mediaType = mediaType }
             withContext(Dispatchers.IO) {
                 saveContentOnDbUseCase(moviesResponse, ContentTypes.TRENDING)
             }
             moviesResponse.orEmpty()
         } else {
-            tmdbRepository.fetchTrendingMoviesFromDb()
+            tmdbRepository.fetchTrendingMoviesFromDb(mediaType)
         }
     }
 

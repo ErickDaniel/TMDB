@@ -14,7 +14,8 @@ data class Movie(
     var releaseDate: String = "",
     var title: String = "",
     var voteAverage: Double = 0.0,
-    var voteCount: Int = 0
+    var voteCount: Int = 0,
+    var mediaType: String = ""
 )
 
 fun TMDBMovie.toDomain() =
@@ -66,5 +67,6 @@ fun TMDBTrendingMovieEntity.toDomain() =
         releaseDate,
         title,
         voteAverage,
-        voteCount
+        voteCount,
+        mediaType
     )

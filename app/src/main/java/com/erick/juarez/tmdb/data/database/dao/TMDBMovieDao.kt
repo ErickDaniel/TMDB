@@ -34,8 +34,8 @@ interface TMDBMovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTrendingMovies(tmdbTrendingMovieEntity: List<TMDBTrendingMovieEntity>)
 
-    @Query("SELECT * FROM $TRENDING_MOVIE_TABLE")
-    suspend fun getTrendingMovies(): List<TMDBTrendingMovieEntity>
+    @Query("SELECT * FROM $TRENDING_MOVIE_TABLE WHERE mediaType=:mediaType")
+    suspend fun getTrendingMovies(mediaType: String): List<TMDBTrendingMovieEntity>
 
     //MOVIE DETAIL
     @Insert(onConflict = OnConflictStrategy.REPLACE)

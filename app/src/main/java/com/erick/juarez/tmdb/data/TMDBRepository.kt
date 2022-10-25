@@ -40,8 +40,8 @@ class TMDBRepository @Inject constructor(
     suspend fun insertTrendingContentOnDb(movies: List<TMDBTrendingMovieEntity>) =
         tmdbMovieDao.insertTrendingMovies(movies)
 
-    suspend fun fetchTrendingMoviesFromDb() =
-        tmdbMovieDao.getTrendingMovies().map {it.toDomain()}
+    suspend fun fetchTrendingMoviesFromDb(mediaType: String) =
+        tmdbMovieDao.getTrendingMovies(mediaType).map {it.toDomain()}
 
     suspend fun fetchTrendingContentFromApi(mediaType: String) =
         api.fetchTrendingContent(mediaType)?.results?.map { it.toDomain() }

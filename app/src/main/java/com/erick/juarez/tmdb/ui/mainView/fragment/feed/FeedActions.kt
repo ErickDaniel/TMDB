@@ -11,9 +11,10 @@ sealed class FeedActions {
     data class FetchPopularContentError(val msg: String) : FeedActions()
 
     data class FetchTrendingContentSuccess(val tmdbResponse: List<Movie>?) : FeedActions()
+
     data class FetchTrendingContentError(val msg: String) : FeedActions()
 
-    object ShowLoading: FeedActions()
-    object HideLoading: FeedActions()
+    object ShowLoading : FeedActions()
+    object HideLoading : FeedActions()
 
 }

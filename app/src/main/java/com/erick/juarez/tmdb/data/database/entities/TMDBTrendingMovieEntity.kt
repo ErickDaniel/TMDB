@@ -17,7 +17,8 @@ data class TMDBTrendingMovieEntity(
     @ColumnInfo(name = "releaseDate") var releaseDate: String = "",
     @ColumnInfo(name = "title") var title: String = "",
     @ColumnInfo(name = "voteAverage") var voteAverage: Double = 0.0,
-    @ColumnInfo(name = "voteCount") var voteCount: Int = 0
+    @ColumnInfo(name = "voteCount") var voteCount: Int = 0,
+    @ColumnInfo(name = "mediaType") var mediaType: String = ""
 )
 
 fun Movie.toDatabaseTrending() = TMDBTrendingMovieEntity(
@@ -29,5 +30,6 @@ fun Movie.toDatabaseTrending() = TMDBTrendingMovieEntity(
     releaseDate,
     title,
     voteAverage,
-    voteCount
+    voteCount,
+    mediaType
 )

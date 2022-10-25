@@ -10,20 +10,21 @@ import com.erick.juarez.tmdb.ui.mainView.viewHolder.MovieViewHolder
 
 class MoviesAdapter(
     private var movieList: List<Movie>,
-    private val onItemClick:(movieId: String) -> Unit
-): RecyclerView.Adapter<MovieViewHolder>() {
+    private val onItemClick: (movieId: String) -> Unit
+) : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieViewHolder(
             RowMovieBinding.bind(
                 LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.row_movie, parent, false)).root
+                    .from(parent.context)
+                    .inflate(R.layout.row_movie, parent, false)
+            ).root
         )
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
         holder.render(movieList[position], onItemClick)
-    }
+
 
     override fun getItemCount() = movieList.size
 
