@@ -1,16 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 apply from: 'dependencies.gradle'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.erick.juarez.tmdb"
         minSdk 28
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -30,12 +34,22 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    flavorDimensions "default"
+    productFlavors {
+        development {
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
+            buildConfigField "String", "BASE_URL_IMAGES", '"https://image.tmdb.org/"'
+            buildConfigField "String", "AUTH_BEARER_API_KEY", '"5e11b2efdbf9db48f1ccfd64bb9e0542"'
+            buildConfigField "String", "YOUTUBE_KEY", '"AIzaSyA9AbL6w9QwJ45n8U-W5Zgxb34TyUCWw0Y"'
+        }
+    }
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -44,13 +58,53 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
 
+    //Testing
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.mockk:mockk:1.12.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata"
     implementation "androidx.fragment:fragment-ktx:$fragment_viewmodel"
     implementation "androidx.activity:activity-ktx:$activity_viewmodel"
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+
+    //Logger interceptors
+    debugImplementation "com.github.chuckerteam.chucker:library:$chuckerInterceptor"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuckerInterceptor"
+
+    //Room
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Logger by Orhanobut
+    implementation "com.orhanobut:logger:$logger_version"
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //Picasso
+    implementation "com.squareup.picasso:picasso:$picasso"
+
+    //Android navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    //Gson
+    implementation "com.google.code.gson:gson:$gson"
+
+    //Youtube Player
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
 }

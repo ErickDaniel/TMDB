@@ -3,26 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/feedFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.erick.juarez.tmdb.ui.mainView.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/feedFragment"
+        android:name="com.erick.juarez.tmdb.ui.mainView.fragment.feed.FeedFragment"
+        android:label="feed_fragment"
+        tools:layout="@layout/feed_fragment">
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_feedFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/sllide_in"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/feedFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.erick.juarez.tmdb.ui.mainView.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/detailFragment"
+        android:name="com.erick.juarez.tmdb.ui.mainView.fragment.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/detail_fragment">
+        <argument
+            android:name="movie_id"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="true" />
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_detailFragment_to_feedFragment"
+            app:destination="@id/feedFragment"
+            app:popUpTo="@id/feedFragment" />
     </fragment>
+
 </navigation>
