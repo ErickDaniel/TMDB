@@ -12,8 +12,8 @@ class FetchTrendingContentUseCase @Inject constructor(
     private val saveContentOnDbUseCase: SaveContentOnDbUseCase
 ) {
 
-    suspend operator fun invoke(page: Int, mediaType: String): List<Movie> {
-        val moviesResponse = tmdbRepository.fetchTrendingContentFromApi(page, mediaType)
+    suspend operator fun invoke(mediaType: String): List<Movie> {
+        val moviesResponse = tmdbRepository.fetchTrendingContentFromApi(mediaType)
 
         return if (moviesResponse?.isNotEmpty().orFalse()) {
             withContext(Dispatchers.IO) {

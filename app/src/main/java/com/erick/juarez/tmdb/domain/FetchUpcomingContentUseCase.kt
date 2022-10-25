@@ -12,8 +12,8 @@ class FetchUpcomingContentUseCase @Inject constructor(
     private val saveContentOnDbUseCase: SaveContentOnDbUseCase
 ) {
 
-    suspend operator fun invoke(page: Int): List<Movie> {
-        val moviesResponse = tmdbRepository.fetchUpcomingContentFromApi(page)
+    suspend operator fun invoke(): List<Movie> {
+        val moviesResponse = tmdbRepository.fetchUpcomingContentFromApi()
 
         return if (moviesResponse?.isNotEmpty().orFalse()) {
             withContext(Dispatchers.IO) {

@@ -20,6 +20,52 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MovieTitle" parent="Theme.TMDB">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_42sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ChipMovieDetail" parent="Theme.TMDB">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/rounded_chip_movie_detail_bg</item>
+        <item name="android:paddingTop">@dimen/padding_3dp</item>
+        <item name="android:paddingBottom">@dimen/padding_3dp</item>
+        <item name="android:paddingLeft">@dimen/padding_4dp</item>
+        <item name="android:paddingRight">@dimen/padding_4dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_8dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_8dp</item>
+    </style>
+
+    <style name="ChipMovieDetail.Gold">
+        <item name="android:background">@drawable/rounded_chip_movie_detail_gold_bg</item>
+    </style>
+
+    <style name="MovieGenere" parent="Theme.TMDB">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/margin_8dp</item>
+    </style>
+
+    <style name="SeeTrailer" parent="Theme.TMDB">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/margin_16dp</item>
+        <item name="android:background">@drawable/rounded_button_bg</item>
+        <item name="android:paddingLeft">@dimen/padding_button_l_r</item>
+        <item name="android:paddingRight">@dimen/padding_button_l_r</item>
+        <item name="android:paddingTop">@dimen/padding_button_t_b</item>
+        <item name="android:paddingBottom">@dimen/padding_button_t_b</item>
+    </style>
+
+    <style name="MovieDescription" parent="Theme.TMDB">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:layout_marginLeft">@dimen/margin_16dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_16dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_16dp</item>
+        <item name="android:textSize">@dimen/font_18sp</item>
+    </style>
+
     <style name="ChipStyleUnselected" parent="Theme.TMDB">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/font_16sp</item>

@@ -14,4 +14,7 @@
     <string name="popular_content">Popular</string>
     <string name="trending">Tendencias</string>
     <string name="movie">Movie</string>
+    <string name="see_trailer">Ver trailer</string>
+    <string name="vote_average">★ %1$s</string>
+    <string name="error_getting_movie_detail">"Película no almacenada "</string>
 </resources>

@@ -12,8 +12,8 @@ class FetchPopularContentUseCase @Inject constructor(
     private val saveContentOnDbUseCase: SaveContentOnDbUseCase
 ) {
 
-    suspend operator fun invoke(page: Int): List<Movie> {
-        val moviesResponse = tmdbRepository.fetchPopularContentFromApi(page)
+    suspend operator fun invoke(): List<Movie> {
+        val moviesResponse = tmdbRepository.fetchPopularContentFromApi()
 
         return if (moviesResponse?.isNotEmpty().orFalse()) {
             withContext(Dispatchers.IO) {

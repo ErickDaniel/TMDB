@@ -10,7 +10,8 @@ rootProject.ext {
             room_version = '2.4.3',
             logger_version = '2.2.0',
             lottieVersion = '3.6.1',
-            glide = '4.14.2',
-            picasso = '2.8'
+            navVersion = '2.5.2',
+            picasso = '2.8',
+            gson = '2.10'
     ]
 }

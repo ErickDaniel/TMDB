@@ -1,4 +1,5 @@
 <resources>
+    <dimen name="font_42sp">42sp</dimen>
     <dimen name="font_18sp">18sp</dimen>
     <dimen name="font_16sp">16sp</dimen>
     <dimen name="margin_12dp">12dp</dimen>
@@ -7,7 +8,11 @@
     <dimen name="movie_width">180dp</dimen>
     <dimen name="movie_height">240dp</dimen>
     <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="padding_3dp">3dp</dimen>
+    <dimen name="padding_4dp">4dp</dimen>
     <dimen name="padding_12dp">12dp</dimen>
     <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="padding_button_l_r">70dp</dimen>
+    <dimen name="padding_button_t_b">9dp</dimen>
 </resources>

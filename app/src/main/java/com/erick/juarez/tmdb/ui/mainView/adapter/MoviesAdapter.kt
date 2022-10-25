@@ -8,8 +8,9 @@ import com.erick.juarez.tmdb.databinding.RowMovieBinding
 import com.erick.juarez.tmdb.domain.model.Movie
 import com.erick.juarez.tmdb.ui.mainView.viewHolder.MovieViewHolder
 
-class PopularContentAdapter(
-    private var movieList: List<Movie>
+class MoviesAdapter(
+    private var movieList: List<Movie>,
+    private val onItemClick:(movieId: String) -> Unit
 ): RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -21,7 +22,7 @@ class PopularContentAdapter(
         )
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.render(movieList[position])
+        holder.render(movieList[position], onItemClick)
     }
 
     override fun getItemCount() = movieList.size

@@ -27,17 +27,17 @@ class FeedViewModel @Inject constructor(
             _feedActions.postValue(FeedActions.ShowLoading)
 
             launch {
-                val upcomingContentResponse = fetchUpcomingContentUseCase(1)
+                val upcomingContentResponse = fetchUpcomingContentUseCase()
                 _feedActions.postValue(
                     FeedActions.FetchUpcomingContentSuccess(upcomingContentResponse)
                 )
 
-                val popularContentResponse = fetchPopularContentUseCase(1)
+                val popularContentResponse = fetchPopularContentUseCase()
                 _feedActions.postValue(
                     FeedActions.FetchPopularContentSuccess(popularContentResponse)
                 )
 
-                val fetchTrendingContentResponse = fetchTrendingContentUseCase(1, MEDIA_TYPE_ALL)
+                val fetchTrendingContentResponse = fetchTrendingContentUseCase(MEDIA_TYPE_ALL)
                 _feedActions.postValue(
                     FeedActions.FetchTrendingContentSuccess(fetchTrendingContentResponse)
                 )

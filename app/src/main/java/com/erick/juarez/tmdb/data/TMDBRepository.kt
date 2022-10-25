@@ -1,6 +1,7 @@
 package com.erick.juarez.tmdb.data
 
 import com.erick.juarez.tmdb.data.database.dao.TMDBMovieDao
+import com.erick.juarez.tmdb.data.database.entities.TMDBMovieDetailEntity
 import com.erick.juarez.tmdb.data.database.entities.TMDBPopularMovieEntity
 import com.erick.juarez.tmdb.data.database.entities.TMDBTrendingMovieEntity
 import com.erick.juarez.tmdb.data.database.entities.TMDBUpcomingMovieEntity
@@ -20,8 +21,8 @@ class TMDBRepository @Inject constructor(
     suspend fun fetchPopularContentFromDB() =
         tmdbMovieDao.getPopularMovies().map { it.toDomain() }
 
-    suspend fun fetchPopularContentFromApi(page: Int) =
-        api.fetchPopularContent(page)?.results?.map { it.toDomain() }
+    suspend fun fetchPopularContentFromApi() =
+        api.fetchPopularContent()?.results?.map { it.toDomain() }
 
 
     //UPCOMING CONTENT
@@ -31,8 +32,8 @@ class TMDBRepository @Inject constructor(
     suspend fun fetchUpcomingContentFromDB() =
         tmdbMovieDao.getUpcomingMovies().map { it.toDomain() }
 
-    suspend fun fetchUpcomingContentFromApi(page: Int) =
-        api.fetchUpcomingContent(page)?.results?.map { it.toDomain() }
+    suspend fun fetchUpcomingContentFromApi() =
+        api.fetchUpcomingContent()?.results?.map { it.toDomain() }
 
 
     //TRENDING CONTENT
@@ -42,12 +43,20 @@ class TMDBRepository @Inject constructor(
     suspend fun fetchTrendingMoviesFromDb() =
         tmdbMovieDao.getTrendingMovies().map {it.toDomain()}
 
-    suspend fun fetchTrendingContentFromApi(page: Int, mediaType: String) =
-        api.fetchTrendingContent(page, mediaType)?.results?.map { it.toDomain() }
+    suspend fun fetchTrendingContentFromApi(mediaType: String) =
+        api.fetchTrendingContent(mediaType)?.results?.map { it.toDomain() }
 
 
     //MOVIE DETAILS
-    suspend fun fetchMovieDetail(movieId: String) = api.fetchMovieDetail(movieId)
+    suspend fun insertMovieOnDb(movie: TMDBMovieDetailEntity) =
+        tmdbMovieDao.insertMovieDetail(movie)
+
+    suspend fun fetchMovieDetailFromApi(movieId: String) =
+        api.fetchMovieDetail(movieId)?.toDomain()
+
+    suspend fun fetchMovieDetailOnDb(movieId: String) =
+        tmdbMovieDao.getMovieDetail(movieId)?.toDomain()
+
 
     suspend fun fetchMovieMedia(movieId: String) = api.fetchMovieMedia(movieId)
 

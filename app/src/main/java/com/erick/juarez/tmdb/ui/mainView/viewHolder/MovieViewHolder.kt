@@ -12,7 +12,7 @@ class MovieViewHolder constructor(
 
     private val binding = RowMovieBinding.bind(view)
 
-    fun render(movie: Movie) =
+    fun render(movie: Movie, onItemClick: (itemId: String) -> Unit) =
         with(movie) {
             with(binding) {
                 moveImageWithPlaceholder(
@@ -20,6 +20,7 @@ class MovieViewHolder constructor(
                     moviePoster,
                     moviePlaceHolder
                 )
+                moviePoster.setOnClickListener { onItemClick(movie.id) }
             }
         }
 

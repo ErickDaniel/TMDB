@@ -1,6 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/moviePlaceHolder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:transitionName="mainImage"
+        app:layout_constraintBottom_toBottomOf="@id/movie_poster"
+        app:layout_constraintLeft_toLeftOf="@id/movie_poster"
+        app:layout_constraintRight_toRightOf="@id/movie_poster"
+        app:layout_constraintTop_toTopOf="@+id/movie_poster"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_animation" />
+
+    <ImageView
+        android:id="@+id/movie_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/movie"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/moonlight_poster" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_gradient_bg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/gradient_bg"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:alpha=".5"
+        android:background="@drawable/black_gradient_down_bg"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/spacer"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/movie_title"
+                style="@style/MovieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/spacer"
+                tools:text="Mooligt" />
+
+            <LinearLayout
+                android:id="@+id/container_chip_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title">
+
+                <TextView
+                    android:id="@+id/chip_year"
+                    style="@style/ChipMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:text="2018" />
+
+                <TextView
+                    android:id="@+id/chip_lang"
+                    style="@style/ChipMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:text="en" />
+
+                <TextView
+                    android:id="@+id/chip_rate"
+                    style="@style/ChipMovieDetail.Gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:text="★ 8.0" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/genere_text_view"
+                style="@style/MovieGenere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@+id/container_chip_details"
+                tools:text="Heartfelt ● Romance Sci-fi ● Drama" />
+
+            <TextView
+                android:id="@+id/watch_trailer_button"
+                style="@style/SeeTrailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_trailer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genere_text_view" />
+
+            <TextView
+                android:id="@+id/movie_description"
+                style="@style/MovieDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/watch_trailer_button"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus condimentum malesuada tortor ac pretium. Fusce sit amet quam ligula. Nam venenatis, sapien sit amet facilisis blandit, massa ante porta lectus, at gravida augue odio ac sem. Cras semper at augue in dictum. Pellentesque malesuada tempus ipsum, id aliquet elit commodo sit amet. Nam vitae ipsum ac dolor imperdiet interdum. Duis porta felis ligula, sed convallis ligula rutrum eu. Sed sed commodo eros. Mauris ornare purus augue, id efficitur mauris pretium ac. Aenean sagittis vehicula mauris sit amet interdum. Aenean aliquam nunc quis dui tincidunt, ut sodales odio vestibulum." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progress_detail_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
