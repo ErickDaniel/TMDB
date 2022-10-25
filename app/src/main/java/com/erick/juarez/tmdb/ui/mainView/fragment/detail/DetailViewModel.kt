@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erick.juarez.tmdb.domain.FetchMovieDetailUseCase
+import com.erick.juarez.tmdb.domain.FetchMovieMediaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val fetchMovieDetailUseCase: FetchMovieDetailUseCase
+    private val fetchMovieDetailUseCase: FetchMovieDetailUseCase,
+    private val fetchMovieMediaUseCase: FetchMovieMediaUseCase
 ): ViewModel() {
 
     val detailActions: LiveData<DetailActions>
@@ -25,6 +27,20 @@ class DetailViewModel @Inject constructor(
                 val movieDetailResponse = fetchMovieDetailUseCase(movieId)
                 _detailActions.postValue(
                     DetailActions.FetchMovieDetailSuccess(movieDetailResponse)
+                )
+            }
+
+            _detailActions.postValue(DetailActions.HideLoading)
+        }
+
+    fun fetchMovieMedia(movieId: String) =
+        viewModelScope.launch {
+            _detailActions.postValue(DetailActions.ShowLoading)
+
+            launch {
+                val movieMediaResponse = fetchMovieMediaUseCase(movieId)
+                _detailActions.postValue(
+                    DetailActions.FetchMovieMediaSuccess(movieMediaResponse)
                 )
             }
 

@@ -4,6 +4,13 @@
     package="com.erick.juarez.tmdb">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -33,6 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.youtubePlayer.TMDBYoutubePlayer"
+            android:theme="@style/Theme.Transparent"/>
     </application>
 
 </manifest>

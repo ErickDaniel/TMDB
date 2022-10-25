@@ -1,5 +1,6 @@
 package com.erick.juarez.tmdb.ui.mainView.fragment.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.erick.juarez.tmdb.R
 import com.erick.juarez.tmdb.data.model.TMDBGenere
+import com.erick.juarez.tmdb.data.model.TMDBMovieMediaResult
 import com.erick.juarez.tmdb.databinding.DetailFragmentBinding
 import com.erick.juarez.tmdb.domain.model.MovieDetail
 import com.erick.juarez.tmdb.ui.MOVIE_ID
+import com.erick.juarez.tmdb.ui.TMDB_VIDEO_KEY
+import com.erick.juarez.tmdb.ui.TMDB_VIDEO_SUGGESTION
+import com.erick.juarez.tmdb.ui.youtubePlayer.TMDBYoutubePlayer
 import com.erick.juarez.tmdb.util.moveImageWithPlaceholder
 import com.erick.juarez.tmdb.util.orFalse
 import com.erick.juarez.tmdb.util.orZero
@@ -62,6 +67,9 @@ class DetailFragment : Fragment() {
                         moviePoster,
                         moviePlaceHolder
                     )
+                    watchTrailerButton.setOnClickListener {
+                        viewModel.fetchMovieMedia(id.toString())
+                    }
                 }
             } else {
                 requireView()
@@ -74,6 +82,19 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun showYoutubePlayer(movieMedia: TMDBMovieMediaResult?) {
+        if(movieMedia?.results?.isNotEmpty().orFalse()) {
+            val mTrailer = movieMedia?.results?.first()
+            val mYoutubePlayerIntent = Intent(requireActivity(), TMDBYoutubePlayer::class.java)
+            val mExtras = Bundle()
+            mExtras.putString(TMDB_VIDEO_KEY, mTrailer?.key.orEmpty())
+            mExtras.putString(TMDB_VIDEO_SUGGESTION, binding.movieTitle.text.toString())
+            mYoutubePlayerIntent.putExtras(mExtras)
+            startActivity(mYoutubePlayerIntent)
+        } else {
+            showErrorGettingYoutubeData()
+        }
+    }
 
     private fun fillGenere(genres: List<TMDBGenere>?) =
         StringBuilder().apply {
@@ -87,6 +108,9 @@ class DetailFragment : Fragment() {
 
     private fun errorShowingDetail() =
         Toast.makeText(context, R.string.error_getting_movie_detail, Toast.LENGTH_LONG).show()
+
+    private fun showErrorGettingYoutubeData() =
+        Toast.makeText(context, R.string.error_getting_youtube_media, Toast.LENGTH_LONG).show()
 
     private fun showLoading() {
         binding.progressDetailFragment.visibility = VISIBLE
@@ -105,6 +129,8 @@ class DetailFragment : Fragment() {
                     setupView(it.movieDetail)
                 DetailActions.ShowLoading -> showLoading()
                 DetailActions.HideLoading -> hideLoading()
+                is DetailActions.FetchMovieMediaSuccess -> showYoutubePlayer(it.movieMedia)
+                is DetailActions.FetchMovieMediaError -> showErrorGettingYoutubeData()
             }
         }
     }

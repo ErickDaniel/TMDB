@@ -17,4 +17,6 @@
     <string name="see_trailer">Ver trailer</string>
     <string name="vote_average">★ %1$s</string>
     <string name="error_getting_movie_detail">"Película no almacenada "</string>
+    <string name="close">close</string>
+    <string name="error_getting_youtube_media">Ocurrio un error obteniendo el video, verifica tu conexión a internet</string>
 </resources>
