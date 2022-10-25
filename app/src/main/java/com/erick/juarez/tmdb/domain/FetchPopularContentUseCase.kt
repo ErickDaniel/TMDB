@@ -1,7 +1,6 @@
 package com.erick.juarez.tmdb.domain
 
 import com.erick.juarez.tmdb.data.TMDBRepository
-import com.erick.juarez.tmdb.data.database.entities.toDatabasePopular
 import com.erick.juarez.tmdb.domain.model.Movie
 import com.erick.juarez.tmdb.util.orFalse
 import javax.inject.Inject

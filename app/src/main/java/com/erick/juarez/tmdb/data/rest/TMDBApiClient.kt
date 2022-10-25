@@ -31,7 +31,7 @@ interface TMDBApiClient {
     @Headers(HEADER_CONTENT_TYPE)
     @GET(PATH_TRENDING_CONTENT)
     suspend fun fetchTrendingContent(
-        @Query(QUERY_PAGE) page: Int,
-        @Query(QUERY_MEDIA_TYPE) mediaType: String
+        @Path(PATH_NAME_MEDIA_TYPE) mediaType: String,
+        @Path(PATH_NAME_TIME_WINDOW) timeWindow: String
     ): Response<TMDBResponse>?
 }

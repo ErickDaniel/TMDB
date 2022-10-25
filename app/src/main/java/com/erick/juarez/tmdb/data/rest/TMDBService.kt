@@ -1,5 +1,6 @@
 package com.erick.juarez.tmdb.data.rest
 
+import com.erick.juarez.tmdb.data.TIME_WINDOW_DEFAULT
 import com.erick.juarez.tmdb.data.model.TMDBMovieDetail
 import com.erick.juarez.tmdb.data.model.TMDBMovieMediaResult
 import com.erick.juarez.tmdb.data.model.TMDBResponse
@@ -54,7 +55,7 @@ class TMDBService @Inject constructor(private val apiClient: TMDBApiClient) {
     suspend fun fetchTrendingContent(page: Int, mediaType: String): TMDBResponse? =
         withContext(Dispatchers.IO) {
             try {
-                val response = apiClient.fetchTrendingContent(page, mediaType)
+                val response = apiClient.fetchTrendingContent(mediaType, TIME_WINDOW_DEFAULT)
                 response?.body()
             } catch (e: Exception) {
                 e.printStackTrace()
