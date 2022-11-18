@@ -9,7 +9,9 @@ import com.erick.juarez.tmdb.domain.FetchTrendingContentUseCase
 import com.erick.juarez.tmdb.domain.FetchUpcomingContentUseCase
 import com.erick.juarez.tmdb.ui.ALL_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +28,7 @@ class FeedViewModel @Inject constructor(
         viewModelScope.launch {
             _feedActions.postValue(FeedActions.ShowLoading)
 
-            launch {
+            withContext(Dispatchers.IO) {
                 val upcomingContentResponse = fetchUpcomingContentUseCase()
                 _feedActions.postValue(
                     FeedActions.FetchUpcomingContentSuccess(upcomingContentResponse)
@@ -50,7 +52,7 @@ class FeedViewModel @Inject constructor(
     fun fetchTrendingContent(mediaType: String) =
         viewModelScope.launch {
             _feedActions.postValue(FeedActions.ShowLoading)
-            launch {
+            withContext(Dispatchers.IO) {
                 val fetchTrendingContentResponse = fetchTrendingContentUseCase(mediaType)
                 _feedActions.postValue(
                     FeedActions.FetchTrendingContentSuccess(fetchTrendingContentResponse)
